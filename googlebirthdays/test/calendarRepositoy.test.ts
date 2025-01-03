@@ -8,7 +8,7 @@ describe('Contact Birthdays to Calender Tests', () => {
         const calendarRepository = new CalendarRepository();
 
         // act
-        const birthdays = await calendarRepository.loadCalendarBirthdaysAt(2025, 1, 22, 'contact-id-12345')
+        const birthdays = await calendarRepository.loadCalendarBirthdayBy(2025, 1, 22, 'contact-id-12345')
 
         // check
         expect(birthdays.length).toBe(1)
