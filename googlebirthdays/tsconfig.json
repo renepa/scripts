@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./lib",
+    "strict": true,
+    "module": "CommonJS",
+    "target": "ESNext",
+    "isolatedModules": true
+  }
+}
