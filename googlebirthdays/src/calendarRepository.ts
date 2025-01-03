@@ -18,6 +18,10 @@ export class CalendarRepository {
         const axiosResponse = await this.calendarApiClient
             .get(`/events?eventTypes=birthday&timeMin=${dateAsString}T00:00:00Z&timeMax=${dateAsString}T23:59:59Z`, this.config)
 
-        return axiosResponse.data.items as GoogleCalendarEvent[]
+        if (axiosResponse.status !== 200) {
+            throw new Error('Negative Response')
+        }
+
+        return axiosResponse.data.items
     }
 }

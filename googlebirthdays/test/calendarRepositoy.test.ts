@@ -8,10 +8,11 @@ describe('Contact Birthdays to Calender Tests', () => {
         const calendarRepository = new CalendarRepository();
 
         // act
-        const birthdays = await calendarRepository.loadCalendarBirthdaysAt(2025, 1, 22)
+        const birthdays = await calendarRepository.loadCalendarBirthdaysAt(2025, 1, 5)
 
         // check
         expect(birthdays.length).toBe(1)
+        expect(birthdays[0].summary).toBe('Test hat Geburtstag')
 
     })
 })
