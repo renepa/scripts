@@ -2,8 +2,6 @@ import axios, { AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders } from
 import * as dotenv from 'dotenv';
 import { GoogleConnection, GoogleContact } from "./types";
 
-dotenv.config()
-
 export class ContactRepository {
 
   private peopleApiClient = axios.create({

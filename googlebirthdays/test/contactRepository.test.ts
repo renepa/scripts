@@ -1,7 +1,9 @@
 import { ContactRepository } from "../src/contactsRepository";
+import * as dotenv from 'dotenv';
 
 describe('Contact Birthdays to Calender Tests', () => {
     it('should load contacts with their birthdays', async () => {
+        dotenv.config()
         // arrange
         // const contactRepository = new ContactRepository();
 
@@ -10,6 +12,6 @@ describe('Contact Birthdays to Calender Tests', () => {
 
         // // check
         // expect(contacts.length).toBe(78)
-        
+
     })
 })

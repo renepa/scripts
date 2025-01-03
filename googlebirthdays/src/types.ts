@@ -14,3 +14,9 @@ export interface GoogleDate {
     month: number
     day: number
 }
+
+export interface GoogleCalendarEvent {
+    summary: string
+    eventType: 'default' | 'birthday'
+    date: string
+}
