@@ -13,15 +13,20 @@ export class CalendarRepository {
         } as RawAxiosRequestHeaders,
     }
 
-    public async loadCalendarBirthdaysAt(year: number, month: number, day: number): Promise<GoogleCalendarEvent[]> {
+    public async loadCalendarBirthdaysAt(year: number, month: number, day: number, contactId: string): Promise<GoogleCalendarEvent[]> {
         const dateAsString = `${year}-${month}-${day}`;
         const axiosResponse = await this.calendarApiClient
-            .get(`/events?eventTypes=birthday&timeMin=${dateAsString}T00:00:00Z&timeMax=${dateAsString}T23:59:59Z`, this.config)
+            .get(`/events?timeMin=${dateAsString}T00:00:00Z&timeMax=${dateAsString}T23:59:59Z`, this.config)
 
         if (axiosResponse.status !== 200) {
             throw new Error('Negative Response')
         }
 
-        return axiosResponse.data.items
+        return (axiosResponse.data.items as GoogleCalendarEvent[])
+            .filter((calendarEvent) => calendarEvent.extendedProperties?.private?.contactId === contactId)
+    }
+
+    private byContactId(contactId: string) {
+
     }
 }

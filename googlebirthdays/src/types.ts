@@ -17,6 +17,12 @@ export interface GoogleDate {
 
 export interface GoogleCalendarEvent {
     summary: string
-    eventType: 'default' | 'birthday'
+    eventType: 'default'
     date: string
+    extendedProperties: {
+        private: {
+            type: 'birthday',
+            contactId: string
+        }
+    }
 }
