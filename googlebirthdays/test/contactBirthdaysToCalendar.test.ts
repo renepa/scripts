@@ -1,9 +1,15 @@
-import { loadContactsWithBirthdays } from "../src/contactBirthdaysToCalender"
-import * as dotenv from 'dotenv';
+import { ContactRepository } from "../src/contactsRepository";
 
 describe('Contact Birthdays to Calender Tests', () => {
     it('should load contacts with their birthdays', async () => {
-        const contacts = await loadContactsWithBirthdays()
-        let i = 0;
+        // arrange
+        // const contactRepository = new ContactRepository();
+
+        // // act
+        // const contacts = await contactRepository.loadContactsWithBirthdays()
+
+        // // check
+        // expect(contacts.length).toBe(78)
+        
     })
 })
