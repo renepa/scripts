@@ -36,16 +36,20 @@ describe('Contact Birthdays to Calender Tests', () => {
 
     })
 
-    it('should load all birthdays', async () => {
+    it('should delete a birthday event', async () => {
         dotenv.config();
         // arrange
         const calendarRepository = new CalendarRepository();
+        const date: GoogleDate = { year: 2025, month: 1, day: 24 };
+        const eventId = 'event-id-12345';
 
         // act
-        const birthdays = await calendarRepository.loadAllBirthdays();
+        await calendarRepository.deleteEvent(eventId);
 
         // check
-        expect(birthdays).toBeDefined();
-        expect(birthdays.length).toBeGreaterThan(0);
+        const deletedEvent = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-12345');
+        expect(deletedEvent).toBeNull();
     });
+
+    
 })

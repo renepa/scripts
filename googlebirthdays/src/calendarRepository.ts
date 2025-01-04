@@ -64,6 +64,10 @@ export class CalendarRepository {
         return birthdayEvents;
     }
 
+    public async deleteEvent(eventId: string): Promise<void> {
+        await this.calendarApiClient.delete(`/events/${eventId}`, this.config);
+    }
+
 
     private createCreateBirthdayPayload(name: string, contactId: string, { year, month, day }: GoogleDate) {
         const dateAsString = `${year}-${month}-${day}`;
