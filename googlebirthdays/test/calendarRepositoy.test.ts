@@ -41,13 +41,13 @@ describe('Contact Birthdays to Calender Tests', () => {
         // arrange
         const calendarRepository = new CalendarRepository();
         const date: GoogleDate = { year: 2025, month: 1, day: 24 };
-        const eventId = 'event-id-12345';
+        const eventId = '1qig52jd6ntfk0me0bf89o5cfo';
 
         // act
         await calendarRepository.deleteEvent(eventId);
 
         // check
-        const deletedEvent = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-12345');
+        const deletedEvent = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-54321');
         expect(deletedEvent).toBeNull();
     });
 
