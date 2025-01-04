@@ -5,7 +5,7 @@ export interface GoogleContact {
 
 }
 export interface GoogleDate {
-    year: number
+    year?: number
     month: number
     day: number
 }

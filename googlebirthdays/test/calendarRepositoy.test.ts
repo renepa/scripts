@@ -36,6 +36,21 @@ describe('Contact Birthdays to Calender Tests', () => {
 
     })
 
+    it('should create a birthday event without a year', async () => {
+        dotenv.config();
+        // arrange
+        const calendarRepository = new CalendarRepository();
+        const date: GoogleDate = { month: 1, day: 24 };
+
+        // act
+        calendarRepository.createOrUpdate(date, 'Test3', 'contact-id-54321');
+
+        // check
+        const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-54321');
+        expect(expectedBirthday).toBeDefined;
+        expect(expectedBirthday!.summary).toBe('Test3 hat Geburtstag');
+    })
+
     it('should delete a birthday event', async () => {
         dotenv.config();
         // arrange

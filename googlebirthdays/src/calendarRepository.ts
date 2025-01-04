@@ -31,6 +31,10 @@ export class CalendarRepository {
     }
 
     public async createOrUpdate(date: GoogleDate, name: string, contactId: string) {
+        if (date.year === undefined) {
+            date.year = new Date().getFullYear();
+        }
+        
         const existingEvent = await this.loadCalendarBirthdayBy(date, contactId);
         const payload = this.createCreateBirthdayPayload(name, contactId, date);
         if (existingEvent) {
