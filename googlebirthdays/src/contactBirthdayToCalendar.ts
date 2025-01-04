@@ -27,7 +27,7 @@ async function deleteAllBirthdays() {
     rl.question(`Are you sure you want to delete ${numBirthdays} birthdays? (yes/no): `, (answer) => {
         if (answer.toLowerCase() === 'yes') {
             contacts.forEach(contact => {
-                calendarRepository.delete(contact.contactId);
+                calendarRepository.deleteEvent(contact.contactId);
             });
             console.log(`${numBirthdays} birthdays deleted.`);
         } else {
