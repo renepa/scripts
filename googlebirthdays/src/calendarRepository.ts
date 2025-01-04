@@ -13,7 +13,7 @@ export class CalendarRepository {
         } as RawAxiosRequestHeaders,
     }
 
-    public async loadCalendarBirthdayBy(year: number, month: number, day: number, contactId: string): Promise<GoogleCalendarEvent | undefined> {
+    public async loadCalendarBirthdayBy({ year, month, day }: GoogleDate, contactId: string): Promise<GoogleCalendarEvent | undefined> {
         const dateAsString = `${year}-${month}-${day}`;
         const axiosResponse = await this.calendarApiClient
             .get(`/events?timeMin=${dateAsString}T00:00:00Z&timeMax=${dateAsString}T23:59:59Z`, this.config)
@@ -31,7 +31,7 @@ export class CalendarRepository {
     }
 
     public async createOrUpdate(date: GoogleDate, name: string, contactId: string) {
-        const existingEvent = await this.loadCalendarBirthdayBy(date.year, date.month, date.day, contactId);
+        const existingEvent = await this.loadCalendarBirthdayBy(date, contactId);
         const payload = this.createCreateBirthdayPayload(name, contactId, date);
         if (existingEvent) {
             await this.calendarApiClient.patch('/events', payload, this.config)
