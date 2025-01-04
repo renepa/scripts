@@ -3,10 +3,10 @@ import { ContactRepository } from './contactsRepository';
 import * as dotenv from 'dotenv';
 import * as readline from 'readline'; // Add this line to import the 'readline' module
 
+dotenv.config();
+
 const calendarRepository = new CalendarRepository();
 const contactRepository = new ContactRepository();
-
-dotenv.config();
 
 async function contactBirthdaysToCalendar() {
     const contacts = await contactRepository.loadContactsWithBirthdays();
@@ -16,8 +16,8 @@ async function contactBirthdaysToCalendar() {
 }
 
 async function deleteAllBirthdays() {
-    const contacts = await contactRepository.loadContactsWithBirthdays();
-    const numBirthdays = contacts.length;
+    const birthdays = await calendarRepository.loadAllBirthdays();
+    const numBirthdays = birthdays.length;
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -26,8 +26,8 @@ async function deleteAllBirthdays() {
 
     rl.question(`Are you sure you want to delete ${numBirthdays} birthdays? (yes/no): `, (answer) => {
         if (answer.toLowerCase() === 'yes') {
-            contacts.forEach(contact => {
-                calendarRepository.deleteEvent(contact.contactId);
+            birthdays.forEach(birthday => {
+                calendarRepository.deleteEvent(birthday.id);
             });
             console.log(`${numBirthdays} birthdays deleted.`);
         } else {
@@ -37,5 +37,21 @@ async function deleteAllBirthdays() {
     });
 }
 
-contactBirthdaysToCalendar();
-deleteAllBirthdays();
+async function main() {
+    const args = process.argv.slice(2);
+    const command = args[0];
+
+    switch (command) {
+        case 'add':
+            await contactBirthdaysToCalendar();
+            console.log('Birthdays added to calendar.');
+            break;
+        case 'delete':
+            await deleteAllBirthdays();
+            break;
+        default:
+            console.log('Unknown command. Use "add" to add birthdays or "delete" to delete all birthdays.');
+    }
+}
+
+main();

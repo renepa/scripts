@@ -11,6 +11,7 @@ export interface GoogleDate {
 }
 
 export interface GoogleCalendarEvent {
+    id: string
     summary: string
     eventType: 'default'
     date: string
