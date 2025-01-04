@@ -30,17 +30,9 @@ describe('Contact Birthdays to Calender Tests', () => {
         calendarRepository.createOrUpdate(date, 'Test2', 'peopple/12345')
 
         // check
-
-    })
-
-    it('should update an existing birthday', async () => {
-        dotenv.config()
-        // arrange
-        const calendarRepository = new CalendarRepository();
-
-        // act
-
-        // check
+        const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(date, 'peopple/12345');
+        expect(expectedBirthday).toBeDefined
+        expect(expectedBirthday!.summary).toBe('Test2 hat Geburtstag')
 
     })
 })
