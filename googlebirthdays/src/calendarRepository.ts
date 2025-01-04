@@ -40,6 +40,31 @@ export class CalendarRepository {
         }
     }
 
+    /**
+     * loadAllBirthdays
+     */
+    public async loadAllBirthdays(): Promise<GoogleCalendarEvent[]> {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const startDate = new Date(currentYear, 0, 1);
+        const endDate = new Date(currentYear, 11, 31);
+
+        const startDateAsString = startDate.toISOString().split('T')[0];
+        const endDateAsString = endDate.toISOString().split('T')[0];
+
+        const axiosResponse = await this.calendarApiClient.get(`/events?timeMin=${startDateAsString}T00:00:00Z&timeMax=${endDateAsString}T23:59:59Z`, this.config);
+
+        if (axiosResponse.status !== 200) {
+            throw new Error('Negative Response');
+        }
+
+        const allEvents = axiosResponse.data.items as GoogleCalendarEvent[];
+        const birthdayEvents = allEvents.filter((event) => event.extendedProperties?.private?.type === 'birthday');
+
+        return birthdayEvents;
+    }
+
+
     private createCreateBirthdayPayload(name: string, contactId: string, { year, month, day }: GoogleDate) {
         const dateAsString = `${year}-${month}-${day}`;
         return {

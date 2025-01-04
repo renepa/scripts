@@ -35,4 +35,17 @@ describe('Contact Birthdays to Calender Tests', () => {
         expect(expectedBirthday!.summary).toBe('Test2 hat Geburtstag')
 
     })
+
+    it('should load all birthdays', async () => {
+        dotenv.config();
+        // arrange
+        const calendarRepository = new CalendarRepository();
+
+        // act
+        const birthdays = await calendarRepository.loadAllBirthdays();
+
+        // check
+        expect(birthdays).toBeDefined();
+        expect(birthdays.length).toBeGreaterThan(0);
+    });
 })
