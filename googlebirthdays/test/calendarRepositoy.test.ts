@@ -1,34 +1,38 @@
 import * as dotenv from 'dotenv';
 import { CalendarRepository } from '../src/calendarRepository';
+import { GoogleDate } from '../src/types';
 
 describe('Contact Birthdays to Calender Tests', () => {
     it('should load contacts with their birthdays', async () => {
         dotenv.config()
         // arrange
         const calendarRepository = new CalendarRepository();
+        const date: GoogleDate = { year: 2025, month: 1, day: 22 }
 
         // act
-        const birthdays = await calendarRepository.loadCalendarBirthdayBy(2025, 1, 22, 'contact-id-12345')
+        const birthday = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-12345')
 
         // check
-        expect(birthdays.length).toBe(1)
-        expect(birthdays[0].summary).toBe('Test hat Geburtstag')
-        expect(birthdays[0].eventType).toBe('default')
-        expect(birthdays[0].extendedProperties.private.contactId).toBe('contact-id-12345')
+        expect(birthday!).toBeDefined
+        expect(birthday!.summary).toBe('Test hat Geburtstag')
+        expect(birthday!.eventType).toBe('default')
+        expect(birthday!.extendedProperties.private.contactId).toBe('contact-id-12345')
 
-    }),
+    })
 
     it('should create a new birthday', async () => {
         dotenv.config()
         // arrange
         const calendarRepository = new CalendarRepository();
+        const date: GoogleDate = { year: 2025, month: 1, day: 23 }
 
         // act
+        calendarRepository.createOrUpdate(date, 'Test2', 'peopple/12345')
 
         // check
 
-    }),
-    
+    })
+
     it('should update an existing birthday', async () => {
         dotenv.config()
         // arrange

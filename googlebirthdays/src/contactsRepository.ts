@@ -1,12 +1,21 @@
 import axios, { AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
 import * as dotenv from 'dotenv';
-import { GoogleConnection, GoogleContact } from "./types";
+import { GoogleContact, GoogleDate } from "./types";
+
+interface GoogleConnection {
+  resourceName: string
+  names: { displayName: string }[]
+  birthdays: { date: GoogleDate }[]
+}
 
 export class ContactRepository {
 
   private peopleApiClient = axios.create({
     baseURL: process.env.PEOPLE_API
   });
+
+  
+  
 
   private config: AxiosRequestConfig = {
     headers: {
@@ -39,6 +48,7 @@ export class ContactRepository {
     }
 
     return {
+      contactId: googleConnection.resourceName,
       name: googleConnection.names[0].displayName,
       birthday: googleConnection.birthdays[0].date
     }
