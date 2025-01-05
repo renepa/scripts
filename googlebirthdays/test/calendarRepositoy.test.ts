@@ -24,10 +24,10 @@ describe('Contact Birthdays to Calender Tests', () => {
         dotenv.config()
         // arrange
         const calendarRepository = new CalendarRepository();
-        const date: GoogleDate = { year: 2025, month: 1, day: 23 }
+        const date: GoogleDate = { year: 1982, month: 1, day: 23 }
 
         // act
-        calendarRepository.createOrUpdate(date, 'Test2', 'peopple/12345')
+        calendarRepository.createOrUpdateBirthday(date, 'Test2', 'peopple/12345')
 
         // check
         const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(date, 'peopple/12345');
@@ -44,7 +44,7 @@ describe('Contact Birthdays to Calender Tests', () => {
         const dateToSearch = { year: new Date().getFullYear(), month: 1, day: 24 };
 
         // act
-        calendarRepository.createOrUpdate(date, 'Test3', 'contact-id-54321');
+        calendarRepository.createOrUpdateBirthday(date, 'Test3', 'contact-id-54321');
 
         // check
         const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(dateToSearch, 'contact-id-54321');
@@ -56,8 +56,8 @@ describe('Contact Birthdays to Calender Tests', () => {
         dotenv.config();
         // arrange
         const calendarRepository = new CalendarRepository();
-        const date: GoogleDate = { year: 2025, month: 1, day: 24 };
-        const eventId = '1qig52jd6ntfk0me0bf89o5cfo';
+        const date: GoogleDate = { year: 2025, month: 1, day: 23 };
+        const eventId = 'tv6hctkuq90u7qbus7qp8f9tbs';
 
         // act
         await calendarRepository.deleteEvent(eventId);

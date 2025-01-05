@@ -14,9 +14,6 @@ export class ContactRepository {
     baseURL: process.env.PEOPLE_API
   });
 
-  
-  
-
   private config: AxiosRequestConfig = {
     headers: {
       'Authorization': `Bearer ${process.env.API_TOKEN}`,

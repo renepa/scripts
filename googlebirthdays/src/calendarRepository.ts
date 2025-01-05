@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, RawAxiosRequestHeaders } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from "axios";
 import { GoogleCalendarEvent, GoogleDate } from "./types";
 
 export class CalendarRepository {
@@ -30,11 +30,11 @@ export class CalendarRepository {
         return foundEvents.length === 0 ? undefined : foundEvents[0]
     }
 
-    public async createOrUpdate(date: GoogleDate, name: string, contactId: string) {
+    public async createOrUpdateBirthday(date: GoogleDate, name: string, contactId: string) {
         if (date.year === undefined) {
             date.year = new Date().getFullYear();
         }
-        
+
         const existingEvent = await this.loadCalendarBirthdayBy(date, contactId);
         const payload = this.createCreateBirthdayPayload(name, contactId, date);
         if (existingEvent) {
@@ -68,7 +68,7 @@ export class CalendarRepository {
         return birthdayEvents;
     }
 
-    public async deleteEvent(eventId: string): Promise<void> {
+    public async deleteEvent(eventId: string) {
         await this.calendarApiClient.delete(`/events/${eventId}`, this.config);
     }
 
