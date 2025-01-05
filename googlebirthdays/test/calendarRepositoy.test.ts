@@ -41,12 +41,13 @@ describe('Contact Birthdays to Calender Tests', () => {
         // arrange
         const calendarRepository = new CalendarRepository();
         const date: GoogleDate = { month: 1, day: 24 };
+        const dateToSearch = { year: new Date().getFullYear(), month: 1, day: 24 };
 
         // act
         calendarRepository.createOrUpdate(date, 'Test3', 'contact-id-54321');
 
         // check
-        const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(date, 'contact-id-54321');
+        const expectedBirthday = await calendarRepository.loadCalendarBirthdayBy(dateToSearch, 'contact-id-54321');
         expect(expectedBirthday).toBeDefined;
         expect(expectedBirthday!.summary).toBe('Test3 hat Geburtstag');
     })

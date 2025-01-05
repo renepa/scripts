@@ -38,7 +38,7 @@ export class CalendarRepository {
         const existingEvent = await this.loadCalendarBirthdayBy(date, contactId);
         const payload = this.createCreateBirthdayPayload(name, contactId, date);
         if (existingEvent) {
-            await this.calendarApiClient.patch('/events', payload, this.config)
+            await this.calendarApiClient.patch(`/events/${existingEvent.id}`, payload, this.config);
         } else {
             await this.calendarApiClient.post('/events', payload, this.config)
         }
