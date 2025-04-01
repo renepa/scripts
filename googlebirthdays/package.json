@@ -8,6 +8,8 @@
     "test": "test"
   },
   "scripts": {
+    "add": "ts-node src/contactBirthdayToCalendar.ts add",
+    "delete": "ts-node src/contactBirthdayToCalendar.ts delete",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
